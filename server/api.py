@@ -32,6 +32,8 @@ async def add_todo(data: dict) -> dict:
     listOfTokens = []
     while(token := lexer.next_token()) != EOF_TOKEN:
             listOfTokens.append({"type": token.token_type.name, "literal": token.literal})
+    
+    listOfTokens.append({"type": EOF_TOKEN.token_type.name, "literal": EOF_TOKEN.literal})
 
     return {
         "data": listOfTokens
