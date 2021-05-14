@@ -54,6 +54,15 @@ class Lexer:
             token = Token(TokenType.SEMICOLON, self._character)
         elif match(r'^\,$', self._character):
             token = Token(TokenType.COMMA, self._character)
+        elif match(r'^\'$', self._character):
+            if(self._peak_character() == '\''):
+                token_type = TokenType.QUOTES
+            else:
+                token_type = TokenType.STRING
+            literal = self._read_string()
+            self._read_character()
+            return Token(token_type, literal)
+
         elif self._is_letter(self._character):
             literal = self._read_identifier()
             token_type = lookup_token_type(literal)
@@ -62,8 +71,12 @@ class Lexer:
 
         elif self._is_number(self._character):
             literal = self._read_number()
-
-            return Token(TokenType.INT, literal)
+            if(match(r'^\d+\.{1}\d+$', literal)):
+                return Token(TokenType.FLOAT, literal)
+            elif(match(r'^\d+$', literal)):
+                return Token(TokenType.INT, literal)
+            else:
+                token = Token(TokenType.ILLEGAL, literal)
 
         elif match(r'^$', self._character):
             token = Token(TokenType.EOF, self._character)
@@ -73,11 +86,13 @@ class Lexer:
         self._read_character()
         return token
 
+
+
     def _is_letter(self, character: str) -> bool:
         return bool(match(r'^[a-záéíóúñA-ZÁÉÍÓÚÑ_]$', character))
 
     def _is_number(self, character: str) -> bool:
-        return bool(match(r'^\d$', character))
+        return bool(match(r'^\d$', character) or match(r'^\.$', character))
 
     def _read_identifier(self) -> str:
         initial_position = self._position
@@ -116,3 +131,14 @@ class Lexer:
         suffix = self._character
 
         return Token(token_type, f'{prefix}{suffix}')
+
+    def _read_string(self) -> Token:
+        initial_position = self._position
+        self._read_character()
+        while(match(r'[^\']', self._character)):
+            while match(r'[\s\da-záéíóúñA-ZÁÉÍÓÚÑ_?¡¿@$%&#,.:;!""]',self._character):
+            #  print(self._character)
+             self._read_character()
+        
+        return self._source[initial_position:self._position + 1]
+            
