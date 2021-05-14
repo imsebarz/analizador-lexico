@@ -12,7 +12,8 @@ EOF_TOKEN = Token(TokenType.EOF, '')
 
 origins = [
     "http://localhost:3000",
-    "localhost:3000"
+    "localhost:3000",
+    "https://analizador-lexico.netlify.app/",
 ]
 
 
