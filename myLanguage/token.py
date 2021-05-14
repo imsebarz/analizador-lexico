@@ -15,6 +15,8 @@ class TokenType(Enum):
     EOF = auto()
     EQUALS = auto()
     FALSE = auto()
+    FLOAT = auto()
+    FOR = auto()
     FUNCTION = auto()
     GT = auto()
     IDENTIFIER = auto()
@@ -30,13 +32,16 @@ class TokenType(Enum):
     NEGATION = auto()
     NOT_EQUALS = auto()
     PLUS = auto()
+    QUOTES = auto()
     RBRACE = auto()
     RBRAKET = auto()
     RETURN =  auto()
     RPAREN = auto()
     SEMICOLON = auto()
+    STRING = auto()
     TRUE = auto()
     VAR = auto()
+    WHILE = auto()
 
 
 class Token(NamedTuple):
@@ -58,6 +63,8 @@ def lookup_token_type(literal:str) -> TokenType:
         'else': TokenType.ELSE,
         'false': TokenType.FALSE,
         'true': TokenType.TRUE,
+        'for': TokenType.FOR,
+        'while': TokenType.WHILE,
     }
 
     return keywords.get(literal, TokenType.IDENTIFIER)
