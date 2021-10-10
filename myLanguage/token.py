@@ -4,7 +4,7 @@ from enum import (
     unique,
 )
 
-from typing import (NamedTuple, Dict)
+from typing import (NamedTuple, Dict, Any)
 
 @unique
 class TokenType(Enum):
@@ -46,13 +46,13 @@ class TokenType(Enum):
 
 class Token(NamedTuple):
     token_type: TokenType
-    literal: str
+    literal: Any
 
     def __str__(self) -> str:
         return (f'Type: {self.token_type.name}, Literal: {self.literal}')
 
 
-def lookup_token_type(literal:str) -> TokenType:
+def lookup_token_type(literal:Any) -> TokenType:
     keywords: Dict[str, TokenType] = {
         'let': TokenType.VAR,
         'var': TokenType.VAR,

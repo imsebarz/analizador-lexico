@@ -137,7 +137,6 @@ class Lexer:
         self._read_character()
         while(match(r'[^\']', self._character)):
             while match(r'[\s\da-záéíóúñA-ZÁÉÍÓÚÑ_?¡¿@$%&#,.:;!""]',self._character):
-            #  print(self._character)
              self._read_character()
         
         return self._source[initial_position:self._position + 1]
