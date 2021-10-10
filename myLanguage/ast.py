@@ -7,6 +7,12 @@ from typing import (
     Optional,
 )
 
+from myLanguage.token import (
+    Token,
+    TokenType,
+)
+
+
 from myLanguage.token import Token
 
 
@@ -27,7 +33,7 @@ class Statement(ASTNode):
         self.token = token
 
     def token_literal(self) -> str:
-        return self.token.literal
+        return str(self.token.literal)
 
 
 class Expression(ASTNode):
@@ -36,7 +42,7 @@ class Expression(ASTNode):
         self.token = token
 
     def token_literal(self) -> str:
-        return self.token.literal
+        return str('holaa')
 
 
 class Program(ASTNode):

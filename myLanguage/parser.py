@@ -119,7 +119,7 @@ class Parser:
 
     def _parse_block(self) -> Block:
         assert self._current_token is not None
-        block_statement = Block(token=self._current_token,
+        block_statement = Block(token=self._current_token.token_type,
                                 statements=[])
 
         self._advance_tokens()
@@ -138,7 +138,7 @@ class Parser:
     def _parse_boolean(self) -> Boolean:
         assert self._current_token is not None
 
-        return Boolean(token=self._current_token,
+        return Boolean(token=self._current_token.token_type,
                        value=self._current_token.token_type == TokenType.TRUE)
 
     def _parse_call(self, function: Expression) -> Call:
