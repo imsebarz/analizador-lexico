@@ -7,6 +7,7 @@ from myLanguage.token import (
     Token,
     TokenType,
 )
+
 EOF_TOKEN: Token = Token(TokenType.EOF, '')
 
 
@@ -15,7 +16,7 @@ def _print_parse_errors(errors: List[str]):
         print(error)
 
 def start_repl() -> None:
-    while (source := input('>> ')) != 'salir()':
+    while (source := input('>> ')) != 'exit()':
         lexer: Lexer = Lexer(source)
         parser: Parser = Parser(lexer)
         program: Program = parser.parse_program()
@@ -25,4 +26,5 @@ def start_repl() -> None:
             continue
 
         print(program)
+
 
